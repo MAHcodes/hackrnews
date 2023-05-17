@@ -1,26 +1,24 @@
 "use client";
+import { getCookie } from "./cookieHandlers";
 
-import { setCookie } from "./cookieHandlers";
-
-function mediaListner(ev: MediaQueryListEvent) {
+function addThemeOnChange() {
   if (typeof document === "undefined") return;
+  let theme = getCookie("theme");
   const htmlEl = document.documentElement;
-  const resolver = ev.matches ? "dark" : "light";
-  htmlEl.className = resolver;
+  if (theme === "system") {
+    const darkMedia = window.matchMedia("(prefers-color-scheme: dark)");
+    theme = darkMedia.matches ? 'dark' : 'light';
+    htmlEl.className = theme;
+  }
 }
 
 export function themeResolver(theme: string) {
-  if (typeof document === "undefined") return;
+  if (typeof window === "undefined" || typeof document === "undefined") return;
   const htmlEl = document.documentElement;
-  const darkMedia = window.matchMedia("(prefers-color-scheme: dark)");
-  if (theme !== "system") {
-    darkMedia.removeEventListener("change", mediaListner);
-    htmlEl.className = theme;
-  } else {
-    const resolver = darkMedia.matches ? "dark" : "light";
-
-    darkMedia.addEventListener("change", mediaListner);
-    htmlEl.className = resolver;
+  if (theme === 'system') {
+    window.matchMedia("(prefers-color-scheme: dark)").onchange = addThemeOnChange;
+    const darkMedia = window.matchMedia("(prefers-color-scheme: dark)");
+    theme = darkMedia.matches ? 'dark' : 'light';
   }
-  setCookie("theme", theme);
+  htmlEl.className = theme;
 }
