@@ -1,15 +1,22 @@
 "use client";
 import ArticleList from "./ArticleList";
+import { fetchFeed } from "./lib/globals";
+import { feedStore } from "./stores/feed";
 
 export default function Home() {
+  const setFeed = feedStore((state) => state.setFeed);
+
+  const lastPostDate = feedStore((state) => state.lastPostDate);
+
+  async function refreshFeed() {
+    setFeed(await fetchFeed(lastPostDate));
+  }
 
   return (
     <div className="flex flex-col items-center">
-      <ArticleList />
+      <button onClick={refreshFeed}>Get Feed</button>
 
-      {/* <button className="self-center my-5 w-20 border-2 border-orange-600 rounded-md px-3 py-1 text-orange-600 ml-2 hover:bg-orange-600 hover:text-white"> */}
-      {/*   more */}
-      {/* </button> */}
+      <ArticleList />
     </div>
   );
 }
