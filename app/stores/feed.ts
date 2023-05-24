@@ -1,7 +1,7 @@
 import { Kind, Event } from "nostr-tools";
 import { create } from "zustand";
 
-type FeedStore = {
+export type FeedStore = {
   feed: Event<Kind.Article>[];
   lastPostDate: number;
   setFeed: (evArr: Event<Kind.Article>[]) => void;
