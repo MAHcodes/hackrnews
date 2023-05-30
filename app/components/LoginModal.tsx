@@ -14,8 +14,8 @@ export default function LoginModal() {
   let [isOpen, setIsOpen] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   let [hasExt, setHasExt] = useState(false);
-  const setPubkey = userStore((state) => state.setPubkey);
-  const user = userStore((state) => state);
+  const user = userStore();
+  const cookie = getCookie("rememberMe") || "false";
 
   const openModal = async () => {
     // Verify webln and nostr availability
@@ -32,20 +32,24 @@ export default function LoginModal() {
   };
 
   const loginHandler = async () => {
-    getPubkey(setPubkey);
-    console.log("pubkey:", user.pubkey);
-    fetchProfileData();
-    setCookie("rememberMe", rememberMe.toString(), 30);
+    const pubkey = await getPubkey();
+    user.login(pubkey)
+
+    if (cookie === "false") {
+      setCookie("rememberMe", rememberMe.toString(), 30);
+    }
   };
 
   useEffect(() => {
-    // console.log("cookie", getCookie("rememberMe"));
-    const cookie = getCookie("rememberMe") || "false"
-    if (getCookie("rememberMe") === "true") {
+    const cookie = getCookie("rememberMe");
+    if (cookie === "true") {
+      setRememberMe(true);
       loginHandler();
+    } else {
+      setRememberMe(false);
     }
-    setCookie("rememberMe", cookie);
-  });
+  }, []);
+
 
   return (
     <>
@@ -106,9 +110,9 @@ export default function LoginModal() {
                           <input
                             type="checkbox"
                             name="remember-me"
-                            onClick={(ev) =>
-                              setRememberMe(ev.currentTarget.checked)
-                            }
+                            onClick={(ev) => {
+                              setRememberMe(ev.currentTarget.checked);
+                            }}
                           />
                           <label className="ml-2 text-sm" htmlFor="remember-me">
                             Remember me for 30 days.

@@ -15,7 +15,7 @@ export interface ProfilesState {
   setReload: (isReload: boolean) => void;
 }
 
-export const useProfiles = create<ProfilesState>((set) => ({
+export const userProfiles = create<ProfilesState>((set) => ({
   profiles: [],
 
   setProfiles: (profiles) => {
@@ -42,7 +42,7 @@ export const useProfiles = create<ProfilesState>((set) => ({
 
     const onEOSE = () => {
       const { profiles, setProfiles, setReload, reload } =
-        useProfiles.getState();
+        userProfiles.getState();
       if (events.length !== 0) {
         events.forEach((event) => {
           let profileKey = `profile_${relayName}_${event.pubkey}`;

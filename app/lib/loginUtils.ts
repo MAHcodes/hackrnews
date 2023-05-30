@@ -1,16 +1,16 @@
-import { userStore } from "../stores/user";
+import { setCookie } from "./cookieHandlers";
 import { detectWebLNProvider } from "./detectWebLn";
 
 export async function getProviders() {
   const webln = await detectWebLNProvider();
   const nostr = typeof window.nostr ? window.nostr : null;
-  // const setPubkey = userStore(state => sta)
 
   return { webln, nostr };
 }
 
-export async function getPubkey(setPubkeyFn: (pkey: string) => void) {
-  // const setPubkey = userStore((state) => state.setPubkey);
+// NOTE: The getPubkeyFunction when called from useEfftect during development mode will be called 
+// more than once, making it to appear errors on the console
+export async function getPubkey() {
   try {
     const { webln, nostr } = await getProviders();
     // Enabling the lightning network
@@ -22,7 +22,7 @@ export async function getPubkey(setPubkeyFn: (pkey: string) => void) {
     // Get publicKey
     const publickey = await nostr.getPublicKey();
     // set to global store
-    setPubkeyFn(publickey);
+    return publickey
   } catch (error) {
     console.error("There was an error while loggin in -> ", error);
   }
@@ -31,4 +31,12 @@ export async function getPubkey(setPubkeyFn: (pkey: string) => void) {
 // TODO: fetch user data and store it on global state
 export async function fetchProfileData() {
   //
+  // console.log("Needs to fetch profile data")
+}
+
+
+export function logout() {
+  setCookie("rememberMe", "false");
+
+  // delete global user state
 }

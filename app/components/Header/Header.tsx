@@ -10,13 +10,14 @@ import { ColorTheme } from "../ColorTheme";
 import { links } from "./links";
 import LoginModal from "../LoginModal";
 import { userStore } from "@/app/stores/user";
-import { Avatar } from "../Avatar";
+import { UserMenu } from "./UserMenu";
+import { Menu } from "./UserMenu/Menu";
 
 const Header = () => {
   const pubkey = userStore((state) => state.pubkey);
 
   return (
-    <header className="z-30 py-1 px-4 txt-color bg-bg-accent shadow-lg top-0 dark:bg-zinc-700">
+    <header className="z-30 sticky py-1 px-4 txt-color bg-bg-accent shadow-lg top-0 dark:bg-zinc-700">
       <nav className="flex items-center body-content justify-evenly">
         {/* Logo */}
         <div className="h-full flex grow ">
@@ -51,14 +52,15 @@ const Header = () => {
             </span>
             <input
               type="text"
-              placeholder="Search"
+              placeholder="/"
               className="py-1 px-2 ring-1 ring-gray-500 rounded-md bg-transparent cursor-pointer focus:cursor-auto focus:w-auto block pl-9"
             />
           </form>
 
           <ColorTheme />
 
-          {pubkey ? <Avatar /> : <LoginModal />}
+          {/* {pubkey ? <UserMenu /> : <LoginModal />} */}
+          {pubkey ? <Menu /> : <LoginModal />}
         </div>
       </nav>
     </header>
