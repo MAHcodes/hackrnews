@@ -7,12 +7,12 @@ import {
   EyeIcon,
   LinkIcon,
 } from "@heroicons/react/24/solid";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { getRelativeTime, shortenHash } from "@/app/lib/utils";
 import { Event, nip19 } from "nostr-tools";
 import { useRelays } from "@/app/stores/relays";
-import { useProfiles } from "@/app/stores/profiles";
+import { userProfiles } from "@/app/stores/profiles";
 
 // definitions missing like sats, upvotes, author (author link etc etc)
 type PostDetails = {
@@ -26,10 +26,11 @@ export default function Article({ event, index }: any) {
   // const [url, setUrl] = useState("")
   // const [createdAt, setCreatedAt] = useState("")
   // const [client, setClient] = useState("")
+
   const [postDetails, setPostDetails] = useState<PostDetails | null>(null);
   const { activeRelay } = useRelays((state) => state);
 
-  const { profiles, reload } = useProfiles();
+  const { profiles, reload } = userProfiles();
 
   const getTagValue = (name: string, tags: string[][]) => {
     const [itemTag] = tags.filter((tag: string[]) => tag[0] === name);

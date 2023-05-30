@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 import Article from "./components/ArticleCard/Article";
 import { userStore } from "./stores/user";
 import { useRelays } from "@/app/stores/relays";
-import { useProfiles } from "@/app/stores/profiles";
+import { userProfiles } from "@/app/stores/profiles";
 
 export default function ArticleList() {
   const { subscribe, relayUrl, activeRelay } = useRelays((state) => state);
-  const { addProfiles } = useProfiles();
+  const { addProfiles } = userProfiles();
 
   const [events, setEvents] = useState<any[]>([]);
   const [loading, isLoading] = useState<boolean>(false);
@@ -53,7 +53,7 @@ export default function ArticleList() {
   return (
     <>
       {/* Posts list */}
-      <ul className="space-y-2">
+      <ul className="space-y-2 border">
         {/* <div>{pubkey}</div> */}
         {events.map((event: any, index: number) => {
           return <Article key={event.id} event={event} index={index} />;

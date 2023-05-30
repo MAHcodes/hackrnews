@@ -12,7 +12,7 @@ export const feedStore = create<FeedStore>((set) => ({
   lastPostDate: 0,
   setFeed: (evArr) =>
     set((state) => {
-      console.log("to be stated: ", evArr);
+      console.debug("to be stated: ", evArr);
       state.feed.push(...evArr);
       return {
         lastPostDate: evArr.at(-1)!.created_at,

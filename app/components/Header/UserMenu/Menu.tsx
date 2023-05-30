@@ -33,7 +33,7 @@ export function Menu() {
                 {userProfiles.map((profile) => (
                   <li
                     key={profile.relay}
-                    className="gap-2 rounded-md p-2 ring-1 ring-black/10 dark:ring-white/10  flex relative hover:ring-primary hover:bg-orange-600/10"
+                    className="gap-2 rounded-md p-2 ring-1 ring-black/10  flex relative hover:ring-primary hover:bg-orange-600/10"
                   >
                     <img
                       src={profile.picture || avatarUrl}
@@ -42,13 +42,11 @@ export function Menu() {
                     />
                     <div className="w-full">
                       <div className="flex justify-between">
-                      <DisplayName
-                        name={profile.name}
-                        displayName={profile.display_name}
-                      />
-                      <span className="text-xs rounded-xl text-heading1-dark bg-secondary p-1 font-black">
-                        {profile.relay.slice(6, -1)}
-                      </span>
+                        <DisplayName
+                          name={profile.name}
+                          displayName={profile.display_name}
+                        />
+                        <DisplayRelay relay={profile.relay} />
                       </div>
                       <DisplayNip05 nip05={profile.nip05} />
                     </div>
@@ -89,4 +87,18 @@ function DisplayName({
 function DisplayNip05({ nip05 }: { nip05?: string }) {
   if (nip05) return <p className="text-xs font-bold">{nip05}</p>;
   return <></>;
+}
+
+function DisplayRelay({
+  relay,
+  className,
+}: {
+  relay: string;
+  className?: string;
+}) {
+  return (
+    <span className={"text-xs rounded-xl text-heading1-dark bg-secondary py-1 px-2 font-black" + className}>
+      {relay.slice(6, -1)}
+    </span>
+  );
 }
