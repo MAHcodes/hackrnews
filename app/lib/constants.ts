@@ -14,4 +14,4 @@ export const RELAYS = [
   // "wss://relay.nostr.info",
 ];
 
-export const POOL = new SimplePool()
+export const POOL = new SimplePool();

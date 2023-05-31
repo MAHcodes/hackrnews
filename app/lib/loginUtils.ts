@@ -8,7 +8,7 @@ export async function getProviders() {
   return { webln, nostr };
 }
 
-// NOTE: The getPubkeyFunction when called from useEfftect during development mode will be called 
+// NOTE: The getPubkeyFunction when called from useEfftect during development mode will be called
 // more than once, making it to appear errors on the console
 export async function getPubkey() {
   try {
@@ -22,7 +22,7 @@ export async function getPubkey() {
     // Get publicKey
     const publickey = await nostr.getPublicKey();
     // set to global store
-    return publickey
+    return publickey;
   } catch (error) {
     console.error("There was an error while loggin in -> ", error);
   }
@@ -33,7 +33,6 @@ export async function fetchProfileData() {
   //
   // console.log("Needs to fetch profile data")
 }
-
 
 export function logout() {
   setCookie("rememberMe", "false");

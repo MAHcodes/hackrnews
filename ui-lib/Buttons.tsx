@@ -14,8 +14,8 @@ export const FillButton = (props: ButtonProps) => {
   return (
     <button
       onClick={() => props.onClick && props.onClick()}
-      className={`flex gap-2 items-center bg-primary outline-primary outline-offset-2 text-white 
-      rounded-md hover:bg-opacity-70 py-2 px-4 active:bg-primary/50 transition-all ease-in-out
+      className={`flex items-center gap-2 rounded-md bg-primary px-4 py-2 
+      text-white outline-offset-2 outline-primary transition-all ease-in-out hover:bg-opacity-70 active:bg-primary/50
       ${props.className || ""}`}
     >
       {props.children}
@@ -27,8 +27,8 @@ export function BorderedButton(props: ButtonProps) {
   return (
     <button
       onClick={() => props.onClick && props.onClick()}
-      className={`ring-0 flex gap-2 items-center border border-primary outline-primary outline-offset-4 text-primary 
-      rounded-md hover:bg-primary/10 py-2 px-4 active:bg-primary/30 transition-all ease-in-out
+      className={`flex items-center gap-2 rounded-md border border-primary px-4 py-2 text-primary 
+      outline-offset-4 outline-primary ring-0 transition-all ease-in-out hover:bg-primary/10 active:bg-primary/30
       ${props.className || ""}`}
     >
       {props.children}
@@ -40,8 +40,8 @@ export function GhostButton(props: ButtonProps) {
   return (
     <button
       onClick={() => props.onClick && props.onClick()}
-      className={`rounded-md hover:bg-gray-400/60 px-4 py-2 outline-primary outline-offset-2
-      transition-all ease-in-out;
+      className={`ease-in-out; rounded-md px-4 py-2 outline-offset-2 outline-primary
+      transition-all hover:bg-gray-400/60
       ${props.className || ""}`}
     >
       {props.children}
@@ -53,8 +53,8 @@ export const FillRoundButton = (props: ButtonProps) => {
   return (
     <button
       onClick={() => props.onClick && props.onClick()}
-      className={`bg-primary outline-primary outline-offset-2 text-white 
-      rounded-full hover:bg-opacity-70 p-2 active:bg-primary/50 transition-all ease-in-out
+      className={`rounded-full bg-primary p-2 text-white 
+      outline-offset-2 outline-primary transition-all ease-in-out hover:bg-opacity-70 active:bg-primary/50
       ${props.className || ""}`}
     >
       {props.children}
@@ -66,8 +66,8 @@ export function BorderedRoundButton(props: ButtonProps) {
   return (
     <button
       onClick={() => props.onClick && props.onClick()}
-      className={`ring-0 border border-primary outline-primary outline-offset-4 text-primary 
-      rounded-full hover:bg-primary/10 p-2 active:bg-primary/30 transition-all ease-in-out
+      className={`rounded-full border border-primary p-2 text-primary outline-offset-4 
+      outline-primary ring-0 transition-all ease-in-out hover:bg-primary/10 active:bg-primary/30
       ${props.className || ""}`}
     >
       {props.children}
@@ -79,8 +79,8 @@ export function GhostRoundButton(props: ButtonProps) {
   return (
     <button
       onClick={() => props.onClick && props.onClick()}
-      className={`rounded-full hover:bg-gray-400/60 p-2 outline-primary outline-offset-2
-      transition-all ease-in-out;
+      className={`ease-in-out; rounded-full p-2 outline-offset-2 outline-primary
+      transition-all hover:bg-gray-400/60
       ${props.className || ""}`}
     >
       {props.children}

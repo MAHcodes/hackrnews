@@ -13,17 +13,16 @@ export const ColorTheme = () => {
   const [selectedTheme, setSelectedTheme] = useState("");
   const [displayIcon, setDisplayIcon] = useState(
     <ComputerDesktopIcon className="h-5 w-5" />
-    );
-    const themeOptions = [
+  );
+  const themeOptions = [
     { name: "System", icon: <ComputerDesktopIcon className="h-5 w-5" /> },
     { name: "Light", icon: <SunIcon className="h-5 w-5" /> },
     { name: "Dark", icon: <MoonIcon className="h-5 w-5" /> },
   ];
 
-  function changeTheme(value:string | undefined){
-    if(value === undefined)
-      value = getCookie('theme') || 'system';
-    setCookie('theme', value);
+  function changeTheme(value: string | undefined) {
+    if (value === undefined) value = getCookie("theme") || "system";
+    setCookie("theme", value);
     setSelectedTheme(value);
     switch (value) {
       case "light":
@@ -40,17 +39,18 @@ export const ColorTheme = () => {
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     changeTheme(undefined);
-  }, [])
+  }, []);
 
   return (
-    <Menu as={"div"} className="relative inline-block text-left max-w-sm">
+    <Menu as={"div"} className="relative inline-block max-w-sm text-left">
       {({ open }) => (
         <>
           <Menu.Button
-            className={`ghost-round-button ${open ? "bg-black/30" : "bg-transparent"
-              }`}
+            className={`ghost-round-button ${
+              open ? "bg-black/30" : "bg-transparent"
+            }`}
           >
             {displayIcon}
           </Menu.Button>
@@ -65,7 +65,7 @@ export const ColorTheme = () => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="popup w-40 right-0 mt-1 origin-top-right ">
+            <Menu.Items className="popup right-0 mt-1 w-40 origin-top-right ">
               {themeOptions.map((theme) => {
                 return (
                   <Menu.Item key={theme.name}>
@@ -74,15 +74,16 @@ export const ColorTheme = () => {
                         onClick={() => {
                           changeTheme(theme.name.toLowerCase());
                         }}
-                        className={` border flex w-full items-center rounded-md px-2 py-2 text-sm ${active
-                            ? "bg-stone-200 border-orange-600 text-orange-600 dark:bg-stone-800 "
+                        className={` flex w-full items-center rounded-md border px-2 py-2 text-sm ${
+                          active
+                            ? "border-orange-600 bg-stone-200 text-orange-600 dark:bg-stone-800 "
                             : "txt-color border-transparent"
-                          }`}
+                        }`}
                       >
                         {theme.icon}
                         <span className="ml-2">{theme.name}</span>
                         {theme.name.toLowerCase() === selectedTheme ? (
-                          <CheckIcon className="h-5 w-5 ml-auto" />
+                          <CheckIcon className="ml-auto h-5 w-5" />
                         ) : (
                           <></>
                         )}

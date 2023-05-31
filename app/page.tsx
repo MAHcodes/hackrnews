@@ -15,15 +15,15 @@ export default function Home() {
 
   return (
     <div className="xl:grid xl:grid-cols-9">
-      <div className="hidden xl:block xl:col-span-2 border ">col1</div>
-      <section className="col-span- lg:col-span-5 flex grow-1 flex-col items-center border">
+      <div className="hidden border xl:col-span-2 xl:block ">col1</div>
+      <section className="col-span- grow-1 flex flex-col items-center border lg:col-span-5">
         <button onClick={refreshFeed}>Get Feed</button>
 
         <ArticleList />
       </section>
 
-      <section className="hidden xl:block px-1 xl:col-span-2">
-        <div className="p-1 sticky top-16">
+      <section className="hidden px-1 xl:col-span-2 xl:block">
+        <div className="sticky top-16 p-1">
           <RelaysFloat />
         </div>
       </section>

@@ -3,13 +3,13 @@ import React from "react";
 
 export default function About() {
   return (
-    <div className="space-y-2 h-full p-4 relative space-x-2">
+    <div className="relative h-full space-x-2 space-y-2 p-4">
       {/* <FillButton onClick={alerto}>Primary Button</FillButton> */}
       {/* <BorderedButton>Border Button</BorderedButton> */}
       {/* <GhostButton onClick={alerto}>Ghost Button</GhostButton> */}
       <button className="fill-button inline-block">button</button>
       <button className="bordered-button inline-block">button</button>
-      <button className="ghost-button shadow inline-block">button</button>
+      <button className="ghost-button inline-block shadow">button</button>
 
       <button className="fill-round-button">
         <HeartIcon className="h-5 w-5" />
@@ -26,7 +26,7 @@ export default function About() {
       <p className="txt-color">This is a normal paragraph</p>
 
       {/* for a popup it is required to make the parent as relative and specify the position */}
-      <div className="popup top-0 right-0 w-52 h-40 flex items-center justify-center">
+      <div className="popup right-0 top-0 flex h-40 w-52 items-center justify-center">
         this is a popup
       </div>
 

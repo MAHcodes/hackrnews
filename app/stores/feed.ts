@@ -20,4 +20,3 @@ export const feedStore = create<FeedStore>((set) => ({
       };
     }),
 }));
-

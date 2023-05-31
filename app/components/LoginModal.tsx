@@ -33,7 +33,7 @@ export default function LoginModal() {
 
   const loginHandler = async () => {
     const pubkey = await getPubkey();
-    user.login(pubkey)
+    user.login(pubkey);
 
     if (cookie === "false") {
       setCookie("rememberMe", rememberMe.toString(), 30);
@@ -50,11 +50,10 @@ export default function LoginModal() {
     }
   }, []);
 
-
   return (
     <>
       <button type="button" onClick={openModal} className="fill-round-button">
-        <UserIcon className="w-5 h-5" />
+        <UserIcon className="h-5 w-5" />
       </button>
 
       <Transition appear show={isOpen} as={Fragment}>
@@ -72,7 +71,7 @@ export default function LoginModal() {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 dark:bg-white/25 bg-black/25" />
+            <div className="fixed inset-0 bg-black/25 dark:bg-white/25" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
@@ -86,7 +85,7 @@ export default function LoginModal() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden align-middle text-left p-6 popup shadow-xl transition-all">
+                <Dialog.Panel className="popup w-full max-w-md transform overflow-hidden p-6 text-left align-middle shadow-xl transition-all">
                   {hasExt ? (
                     <>
                       <Dialog.Title as="h3" className="title">
@@ -95,7 +94,7 @@ export default function LoginModal() {
 
                       <button
                         onClick={() => setIsOpen(false)}
-                        className="fill-round-button bg-red-600 text-white p-1 absolute top-2 right-2"
+                        className="fill-round-button absolute right-2 top-2 bg-red-600 p-1 text-white"
                       >
                         <XMarkIcon className="h-4 w-4" />
                       </button>
@@ -105,7 +104,7 @@ export default function LoginModal() {
                         </p>
                       </div>
 
-                      <div className="mt-4 flex justify-between items-center">
+                      <div className="mt-4 flex items-center justify-between">
                         <div className="flex items-center text-gray-500">
                           <input
                             type="checkbox"

@@ -2,11 +2,11 @@ import { WrenchIcon } from "@heroicons/react/24/solid";
 
 export default function AccountSettings() {
   return (
-    <div className="max-w-lg mx-auto">
-      <div className="title flex gap-4 items-center justify-center">
+    <div className="mx-auto max-w-lg">
+      <div className="title flex items-center justify-center gap-4">
         <span>
-          <WrenchIcon className="w-8 h-8"></WrenchIcon>
-        </span> 
+          <WrenchIcon className="h-8 w-8"></WrenchIcon>
+        </span>
         Profile
       </div>
     </div>

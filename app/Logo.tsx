@@ -2,7 +2,7 @@ import Link from "next/link";
 import { FC } from "react";
 
 const Logo: FC = () => (
-  <Link className="text-xl md:text-2xl font-bold" href="/">
+  <Link className="text-xl font-bold md:text-2xl" href="/">
     <div className="flex flex-row">
       {/* <FaBlog size="25" /> */}
       <span className="">

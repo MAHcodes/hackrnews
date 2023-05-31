@@ -16,16 +16,17 @@ export const UserMenu = () => {
     <div className="flex items-center">
       <Menu
         as={"div"}
-        className="inline-block align-baseline text-left max-w-sm"
+        className="inline-block max-w-sm text-left align-baseline"
       >
         {({ open }) => (
           <>
             {/* Avatar */}
             <Menu.Button
-              className={`ghost-round-button overflow-hidden relative ${open ? "bg-black/30" : "bg-transparent"
-                }`}
+              className={`ghost-round-button relative overflow-hidden ${
+                open ? "bg-black/30" : "bg-transparent"
+              }`}
             >
-              <img src={picture} className="w-6 h-6 rounded" />
+              <img src={picture} className="h-6 w-6 rounded" />
             </Menu.Button>
 
             <Transition
@@ -38,16 +39,17 @@ export const UserMenu = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="popup w-40 right-0 mt-1 origin-top-right ">
+              <Menu.Items className="popup right-0 mt-1 w-40 origin-top-right ">
                 <Link href={`u/${pubkey}`}>
                   <Menu.Item>
                     {({ active }) => (
                       <button
-                        onClick={() => { }}
-                        className={` border flex w-full items-center rounded-md px-2 py-2 text-sm ${active
-                          ? "bg-stone-200 border-orange-600 text-orange-600 dark:bg-stone-800 "
-                          : "txt-color border-transparent"
-                          }`}
+                        onClick={() => {}}
+                        className={` flex w-full items-center rounded-md border px-2 py-2 text-sm ${
+                          active
+                            ? "border-orange-600 bg-stone-200 text-orange-600 dark:bg-stone-800 "
+                            : "txt-color border-transparent"
+                        }`}
                       >
                         <span className="ml-2">Settings</span>
                       </button>
@@ -59,11 +61,12 @@ export const UserMenu = () => {
                   {({ active }) => (
                     <button
                       //TODO: Handle logout
-                      onClick={() => { }}
-                      className={` border flex w-full items-center rounded-md px-2 py-2 text-sm ${active
-                        ? "bg-stone-200 border-orange-600 text-orange-600 dark:bg-stone-800 "
-                        : "txt-color border-transparent"
-                        }`}
+                      onClick={() => {}}
+                      className={` flex w-full items-center rounded-md border px-2 py-2 text-sm ${
+                        active
+                          ? "border-orange-600 bg-stone-200 text-orange-600 dark:bg-stone-800 "
+                          : "txt-color border-transparent"
+                      }`}
                     >
                       <span className="ml-2">Logout</span>
                     </button>

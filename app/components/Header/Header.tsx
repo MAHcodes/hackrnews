@@ -17,23 +17,23 @@ const Header = () => {
   const pubkey = userStore((state) => state.pubkey);
 
   return (
-    <header className="z-30 sticky py-1 px-4 txt-color bg-bg-accent shadow-lg top-0 dark:bg-zinc-700">
-      <nav className="flex items-center body-content justify-evenly">
+    <header className="txt-color sticky top-0 z-30 bg-bg-accent px-4 py-1 shadow-lg dark:bg-zinc-700">
+      <nav className="body-content flex items-center justify-evenly">
         {/* Logo */}
-        <div className="h-full flex grow ">
+        <div className="flex h-full grow ">
           <Logo />
         </div>
 
         {/* links */}
-        <div className="hidden md:flex space-x-1  items-center justify-center grow-0">
+        <div className="hidden grow-0 items-center  justify-center space-x-1 md:flex">
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="flex gap-2 ghost-button items-center"
+              className="ghost-button flex items-center gap-2"
             >
               <span
-                className="w-5 h-5"
+                className="h-5 w-5"
                 dangerouslySetInnerHTML={{ __html: link.icon }}
               ></span>
               {link.name}
@@ -45,15 +45,15 @@ const Header = () => {
           </Link>
         </div>
 
-        <div className="flex gap-4 items-center grow justify-end relative">
+        <div className="relative flex grow items-center justify-end gap-4">
           <form className="relative">
-            <span className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+            <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
               <MagnifyingGlassIcon className="h-6 w-6" />
             </span>
             <input
               type="text"
               placeholder="/"
-              className="py-1 px-2 ring-1 ring-gray-500 rounded-md bg-transparent cursor-pointer focus:cursor-auto focus:w-auto block pl-9"
+              className="block cursor-pointer rounded-md bg-transparent px-2 py-1 pl-9 ring-1 ring-gray-500 focus:w-auto focus:cursor-auto"
             />
           </form>
 

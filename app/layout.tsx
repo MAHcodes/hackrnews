@@ -5,14 +5,13 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-
   return (
     <html lang="en">
       <head />
-      <body className="min-h-screen txt-color relative">
+      <body className="txt-color relative min-h-screen">
         <Header />
         {/* <body className="container relative flex flex-col mx-auto min-h-screen"> */}
-        <main className="container body-content mx-auto h-full pt-6 px-4">
+        <main className="body-content container mx-auto h-full px-4 pt-6">
           {children}
         </main>
       </body>
