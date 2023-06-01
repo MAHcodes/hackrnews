@@ -4,8 +4,9 @@ import {
   Cog8ToothIcon,
   PencilIcon,
   TrashIcon,
+  KeyIcon,
+  PlusCircleIcon,
 } from "@heroicons/react/24/outline";
-import { KeyIcon } from "@heroicons/react/24/solid";
 import { Fragment } from "react";
 
 export function Menu() {
@@ -35,41 +36,8 @@ export function Menu() {
                 <Cog8ToothIcon className="rounded-btn h-5 w-5" />
               </button>
 
-              <ul className="space-y-2">
+              <ul className="relative max-h-72 space-y-2 overflow-y-auto p-1">
                 {userProfiles.map((profile) => (
-                  // <li
-                  //   key={profile.relay}
-                  //   className="rounded-md p-2 ring-1 ring-black/10 relative hover:ring-primary hover:bg-orange-600/10"
-                  // >
-                  //   {/* Card actions */}
-                  //   <div className="flex justify-end gap-3 mb-2">
-                  //     <button className="fill-round-button">
-                  //       <PencilIcon className="w-4 h-4" />
-                  //     </button>
-                  //     <button>
-                  //       <TrashIcon className="w-4 h-4" />
-                  //     </button>
-                  //   </div>
-
-                  //   {/* Card Main */}
-                  //   <div className="flex">
-                  //     <img
-                  //       src={profile.picture || avatarUrl}
-                  //       alt="avatar"
-                  //       className="w-10 h-10 rounded-md"
-                  //     />
-                  //     <div className="w-full">
-                  //       <div className="flex justify-between">
-                  //         <DisplayName
-                  //           name={profile.name}
-                  //           displayName={profile.display_name}
-                  //         />
-                  //         <DisplayRelay relay={profile.relay} />
-                  //       </div>
-                  //       <DisplayNip05 nip05={profile.nip05} />
-                  //     </div>
-                  //   </div>
-                  // </li>
                   <ProfileCard
                     pubkey={pubkey}
                     key={profile.relay}
@@ -77,9 +45,14 @@ export function Menu() {
                     displayName={profile.display_name}
                     profilePic={profile.picture}
                     nip05={profile.nip05}
+                    relay={profile.relay}
                   />
                 ))}
               </ul>
+              <button className="mt-2 flex w-full items-center justify-center rounded border border-dashed border-gray-400 p-2 text-sm font-bold uppercase text-gray-400 hover:border-primary hover:text-primary">
+                <PlusCircleIcon className="mr-2 h-6 w-6" />
+                Add new Relay
+              </button>
             </Popover.Panel>
           </Transition>
         </div>
@@ -88,36 +61,74 @@ export function Menu() {
   );
 }
 
+function ProfileCard({
+  profilePic,
+  name,
+  displayName,
+  nip05,
+  pubkey,
+  relay,
+}: {
+  profilePic?: string;
+  name?: string;
+  displayName?: string;
+  nip05?: string;
+  pubkey: string;
+  relay: string;
+}) {
+  return (
+    <div
+      className="h-26 group grid grid-cols-5 grid-rows-2 gap-2 rounded-md p-1 shadow-sm ring-1
+      ring-black/5 hover:bg-orange-600/10 hover:ring-primary"
+    >
+      {/* profile pic */}
+      <div className="row-span-2">
+        <DisplayImg img={profilePic} />
+      </div>
+
+      {/* Profile data - name, display_name, nip05, pubkey, ... */}
+      <div className="col-span-3">
+        <DisplayName pubkey={pubkey} name={name} displayName={displayName} />
+        <DisplayNip05 nip05={nip05} />
+      </div>
+
+      {/* Relay */}
+      <div className="col-span-3 col-start-2 row-start-2">
+        <DisplayRelay relay={relay} />
+      </div>
+
+      {/* Actions */}
+      <div className="col-start-5 row-span-2 row-start-1 transition duration-500 ease-in-out lg:opacity-0 lg:group-hover:opacity-100">
+        <DisplayActions />
+      </div>
+    </div>
+  );
+}
+
 function DisplayName({
   name,
   displayName,
   pubkey,
-  nip05,
 }: {
   name?: string;
   displayName?: string;
   pubkey: string;
-  nip05?: string;
 }) {
-  if (displayName)
+  if (displayName) {
     return (
-      <>
-        <span className="">
-          {displayName}
-          <span className="text-xs text-gray-500">({name})</span>
-        </span>
-        <div className="overflow-hidden text-ellipsis text-xs">
-          <span className="mr-1">
-            <KeyIcon className="h-4 w-4" />
-          </span>{" "}
-          {pubkey}
-        </div>
-      </>
+      <span>
+        {displayName}
+        <span className="text-xs text-gray-500">({name})</span>
+      </span>
     );
+  } else if (!displayName && name) {
+    return <span className="">{name}</span>;
+  }
   return (
-    <>
-      <span className="">{name}</span>
-    </>
+    <div className="flex max-w-full items-center">
+      <KeyIcon className="mr-1 h-4 w-4" />
+      <span className="w-[80%] truncate">{pubkey}</span>
+    </div>
   );
 }
 
@@ -126,20 +137,9 @@ function DisplayNip05({ nip05 }: { nip05?: string }) {
   return <></>;
 }
 
-function DisplayRelay({
-  relay,
-  className,
-}: {
-  relay: string;
-  className?: string;
-}) {
+function DisplayRelay({ relay }: { relay: string; className?: string }) {
   return (
-    <span
-      className={
-        "rounded-xl bg-secondary px-2 py-1 text-xs font-black text-heading1-dark" +
-        className
-      }
-    >
+    <span className="rounded-xl border border-secondary px-2 py-1 text-sm text-secondary">
       {relay.slice(6, -1)}
     </span>
   );
@@ -149,41 +149,22 @@ function DisplayImg({ img }: { img?: string }) {
   const seed = Math.random().toString(36).substring(2, 10);
   const avatarUrl = `https://api.dicebear.com/6.x/bottts-neutral/svg?seed=${seed}`;
 
-  return <img src={img || avatarUrl} alt="Avatar" className="rounded-md" />;
+  return (
+    <div className="flex h-full items-center">
+      <img src={img || avatarUrl} alt="Avatar" className="w-full rounded-md" />
+    </div>
+  );
 }
 
-function ProfileCard({
-  profilePic,
-  name,
-  displayName,
-  nip05,
-  pubkey,
-}: {
-  profilePic?: string;
-  name?: string;
-  displayName?: string;
-  nip05?: string;
-  pubkey: string;
-}) {
+function DisplayActions() {
   return (
-    <div className="grid grid-cols-6 grid-rows-3 gap-2 rounded-md border p-1 hover:border-primary">
-      <div className="col-span-2 row-span-3">
-        <DisplayImg img={profilePic} />
-      </div>
-
-      {/* Profile data - name, display_name, nip05, pubkey, ... */}
-      <div className="col-span-3 col-start-3 row-span-2 border">
-        <DisplayName
-          pubkey={pubkey}
-          name={name}
-          nip05={nip05}
-          displayName={displayName}
-        />
-      </div>
-
-      <div className="col-span-4 col-start-3 row-start-3 border">Relay</div>
-
-      <div className="col-start-6 row-span-2 row-start-1 border">Actions</div>
+    <div className="flex flex-col items-end gap-6">
+      <button className="ghost-round-button">
+        <PencilIcon className="h-4 w-4" />
+      </button>
+      <button className="fill-round-button">
+        <TrashIcon className="h-4 w-4" />
+      </button>
     </div>
   );
 }
