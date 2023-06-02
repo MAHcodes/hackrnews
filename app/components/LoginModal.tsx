@@ -1,11 +1,10 @@
 "use client";
-import { Dialog, Transition } from "@headlessui/react";
 import { ArrowRightOnRectangleIcon, UserIcon } from "@heroicons/react/24/solid";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getCookie, setCookie } from "../lib/cookieHandlers";
-import { fetchProfileData, getProviders, getPubkey } from "../lib/loginUtils";
+import { getProviders, getPubkey } from "../lib/loginUtils";
 import { userStore } from "../stores/user";
-import Modal from "./Modal";
+import Modal from "@/app/components/Modal";
 
 export default function LoginModal() {
   let [isOpen, setIsOpen] = useState(false);
