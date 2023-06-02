@@ -1,14 +1,11 @@
 "use client";
 import { Dialog, Transition } from "@headlessui/react";
-import {
-  ArrowRightOnRectangleIcon,
-  UserIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/solid";
+import { ArrowRightOnRectangleIcon, UserIcon } from "@heroicons/react/24/solid";
 import { Fragment, useEffect, useState } from "react";
 import { getCookie, setCookie } from "../lib/cookieHandlers";
 import { fetchProfileData, getProviders, getPubkey } from "../lib/loginUtils";
 import { userStore } from "../stores/user";
+import Modal from "./Modal";
 
 export default function LoginModal() {
   let [isOpen, setIsOpen] = useState(false);
@@ -56,87 +53,46 @@ export default function LoginModal() {
         <UserIcon className="h-5 w-5" />
       </button>
 
-      <Transition appear show={isOpen} as={Fragment}>
-        <Dialog
-          as="div"
-          className="relative z-10"
-          onClose={() => setIsOpen(false)}
-        >
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-black/25 dark:bg-white/25" />
-          </Transition.Child>
-
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
-                <Dialog.Panel className="popup w-full max-w-md transform overflow-hidden p-6 text-left align-middle shadow-xl transition-all">
-                  {hasExt ? (
-                    <>
-                      <Dialog.Title as="h3" className="title">
-                        LOGIN
-                      </Dialog.Title>
-
-                      <button
-                        onClick={() => setIsOpen(false)}
-                        className="fill-round-button absolute right-2 top-2 bg-red-600 p-1 text-white"
-                      >
-                        <XMarkIcon className="h-4 w-4" />
-                      </button>
-                      <div className="mt-2">
-                        <p className="text-sm text-gray-500">
-                          inputs go here, styles needed
-                        </p>
-                      </div>
-
-                      <div className="mt-4 flex items-center justify-between">
-                        <div className="flex items-center text-gray-500">
-                          <input
-                            type="checkbox"
-                            name="remember-me"
-                            onClick={(ev) => {
-                              setRememberMe(ev.currentTarget.checked);
-                            }}
-                          />
-                          <label className="ml-2 text-sm" htmlFor="remember-me">
-                            Remember me for 30 days.
-                          </label>
-                        </div>
-
-                        <button
-                          type="button"
-                          className="fill-button ml-auto"
-                          onClick={loginHandler}
-                        >
-                          login{" "}
-                          <ArrowRightOnRectangleIcon className="h-5 w-5" />
-                        </button>
-                      </div>
-                    </>
-                  ) : (
-                    <DownloadExtension />
-                  )}
-                </Dialog.Panel>
-              </Transition.Child>
+      <Modal
+        title={hasExt ? "LOGIN" : "Oops!"}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+      >
+        {hasExt ? (
+          <>
+            <div className="mt-2">
+              <p className="text-sm text-gray-500">
+                inputs go here, styles needed
+              </p>
             </div>
-          </div>
-        </Dialog>
-      </Transition>
+
+            <div className="mt-4 flex items-center justify-between">
+              <div className="flex items-center text-gray-500">
+                <input
+                  type="checkbox"
+                  name="remember-me"
+                  onClick={(ev) => {
+                    setRememberMe(ev.currentTarget.checked);
+                  }}
+                />
+                <label className="ml-2 text-sm" htmlFor="remember-me">
+                  Remember me for 30 days.
+                </label>
+              </div>
+
+              <button
+                type="button"
+                className="fill-button ml-auto"
+                onClick={loginHandler}
+              >
+                login <ArrowRightOnRectangleIcon className="h-5 w-5" />
+              </button>
+            </div>
+          </>
+        ) : (
+          <DownloadExtension />
+        )}
+      </Modal>
     </>
   );
 }
@@ -144,14 +100,8 @@ export default function LoginModal() {
 const DownloadExtension = () => {
   return (
     <>
-      <Dialog.Title
-        as="h3"
-        className="text-lg font-medium leading-6 text-gray-900"
-      >
-        Oops!
-      </Dialog.Title>
       <p className="text-sm text-gray-500">
-        It seems you don't have a supported extension.
+        It seems you don&apos;t have a supported extension.
       </p>
       <p>
         Consult{" "}
