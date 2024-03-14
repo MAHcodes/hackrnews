@@ -10,8 +10,10 @@ export default function Route({ path, name, accent, Icon }: IRouteProps) {
 			href={path}
 			className={twJoin(
 				accent,
-				"flex items-center flex-1 p-6 rounded-xl gap-3 lg:gap-6 font-bold justify-center",
-				name === "Post" ? "lg:col-span-2 flex-row py-10" : "flex-col",
+				"flex items-center flex-1 rounded-xl gap-3 md:gap-6 font-bold justify-center p-6",
+				name === "Post"
+					? "md:col-span-2 flex-col md:flex-row md:py-10"
+					: "flex-col",
 			)}
 		>
 			{Icon}
