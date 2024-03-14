@@ -1,10 +1,14 @@
+import Editor from "@/components/editor";
+import { twJoin } from "tailwind-merge";
+
 export default function Page() {
 	return (
-		<div>
-			create article Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-			Adipisci nulla facilis obcaecati, voluptatem aperiam facere delectus
-			nostrum magni explicabo, ducimus quibusdam impedit! Dignissimos cupiditate
-			similique vitae tempora provident harum repudiandae?
+		<div
+			className={twJoin("float-border rounded-md overflow-hidden", "flex")}
+			style={{ height: "80vh" }}
+		>
+      <Editor className="w-full" />
+      <div className="w-full">preview</div>
 		</div>
 	);
 }

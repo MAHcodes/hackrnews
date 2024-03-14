@@ -1,7 +1,6 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { twJoin } from "tailwind-merge";
 import * as monaco from "monaco-editor";
 import { ElementRef, useEffect, useRef } from "react";
 import sample from "./sample";
@@ -9,7 +8,7 @@ import sample from "./sample";
 // @ts-expect-error
 import { initVimMode } from "monaco-vim";
 
-export default function Editor() {
+export default function Editor(opts) {
 	const monacoRef = useRef<ElementRef<"div">>(null);
 	const { resolvedTheme = "light" } = useTheme();
 
@@ -35,11 +34,5 @@ export default function Editor() {
 		};
 	}, [editorTheme]);
 
-	return (
-		<div
-			ref={monacoRef}
-			className={twJoin("float-border rounded-md overflow-hidden")}
-			style={{ height: "80vh" }}
-		/>
-	);
+	return <div ref={monacoRef} {...opts} />;
 }
